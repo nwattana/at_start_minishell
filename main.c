@@ -1,8 +1,16 @@
-#include <stdio.h>
-#include <readline.h>
 
+# include <readline/readline.h>
+# include <readline/history.h>
 
-int	main(void)
-{
-	char *line = readline("enter line: ");
+int main() {
+  char* input = readline("Enter your command: ");
+  printf("You entered: %s\n", input);
+
+  while (input)
+  {
+    input = readline("Enter your command: ");
+    printf("You entered: %s\n", input);
+    if (input == NULL)
+      return (0);
+  }
 }
