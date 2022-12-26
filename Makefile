@@ -1,24 +1,24 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nwattana <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/27 00:34:26 by nwattana          #+#    #+#              #
-#    Updated: 2022/12/27 01:14:56 by nwattana         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME=minishell
 
 
+CC=gcc
+CFLAGS=#-Wall -Werror -Wextra
+SRCS=#SRC list
+LIBFT= -L./libft/ -I./libft/ -lft
 
-#LREAD_DIR = /opt/homebrew/Cellar/readline/8.1.2
+TEST_FILE=run_command.c
 
+RM=rm -rf
 
-#LIBS =	-lreadline -L$(LREAD_DIR)/lib
+# Color
+RED=\033[1;31m
+GREEN=\033[1;32m
+YELLOW=\033[1;33m
+BLUE=\033[1;34m
+MAGENTA=\033[1;35m
+RESET=\033[0m
 
 UNAME = $(shell uname -s)
-
 ifeq ($(UNAME), Linux)
 	LREAD_DIR = -L/usr/local/lib -I/usr/local/include/ -lreadline 
 else 
@@ -26,9 +26,31 @@ else
 endif
 
 
-all:
-	@printf "\n\nNow you complie in \e[1;34m$(UNAME)\e[0m\n\n"
-	gcc main.c $(LREAD_DIR)
+all: libft
+	@printf "Now you complie in \e[1;34m$(UNAME)\e[0m\n"
+	@ echo "$(RED)"
+	$(CC) $(CFLAGS) main.c $(LREAD_DIR) $(LIBFT) -o $(NAME)
+	@ echo "$(RESET)"
 
-## prototype
-## gcc main.c -L/usr/local/lib/ -I/usr/local/include -lreadline
+test: libft
+	@printf "$(RED)Run test$(RESET)\n"
+	$(CC) $(CFLAGS) $(TEST_FILE) $(LREAD_DIR) $(LIBFT) -o $(NAME)
+	@printf "$(GREEN)Result test$(RESET)\n"
+	@./$(NAME)
+
+libft:
+	@echo "Start Create $(BLUE)Lib-ft$(RESET)"
+	@make -C ./libft
+
+clean:
+	@make -C ./libft clean
+	@$(RM) $(OBJ)
+
+fclean: clean
+	@make -C ./libft clean
+	@$(RM) $(NAME)
+	@ echo "$(RED)Remove minishell $(RESET)"
+
+re: fclean all
+
+.PHONY: all libft clean fclean re
