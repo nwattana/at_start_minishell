@@ -1,4 +1,5 @@
-
+# include <stdio.h>
+# include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -12,5 +13,6 @@ int main() {
     printf("You entered: %s\n", input);
     if (input == NULL)
       return (0);
+	free(input);
   }
 }
