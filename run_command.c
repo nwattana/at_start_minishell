@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 01:33:19 by nwattana          #+#    #+#             */
-/*   Updated: 2022/12/29 02:19:21 by nwattana         ###   ########.fr       */
+/*   Updated: 2022/12/29 02:51:26 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ int	main(int ac, char **av, char **env)
 		com = NULL;
 		i++;
 	}
+	printf("run command -> %s", com);
+	i = 0;
+	while (arg[i])
+	{
+		printf(" %s",arg[i]);
+		i++;
+	}
+	printf("\n");
 	execv(com, arg);
 }
 
