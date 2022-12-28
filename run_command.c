@@ -6,18 +6,98 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 01:33:19 by nwattana          #+#    #+#             */
-/*   Updated: 2022/12/27 02:57:48 by nwattana         ###   ########.fr       */
+/*   Updated: 2022/12/29 02:19:21 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "run_command.h"
+char	*get_path(char **env);
+char	**clean_path(char **path);
+char	**create_arg(void);
 
 int	main(int ac, char **av, char **env)
 {
-	int		i = 0;
+	int		i;
 	char	*path;
 	char	**sys_path;
+	char	*com;
+	char	**arg = create_arg();
 
+	path = get_path(env);
+	if (path == NULL) 
+		return (1);
+	sys_path = ft_split(path, ':');
+	if (!sys_path)
+		return (0);
+	sys_path = clean_path(sys_path);
+
+
+
+	i = 0;
+	while (sys_path[i])
+	{
+	//	printf("%s\n",sys_path[i]);
+		i++;
+	}
+
+	/* check access */
+	char	*cm = "ls";
+	i = 0;
+	while (sys_path[i])
+	{
+		com = ft_strjoin(sys_path[i], cm);
+		printf("access to -> %s\n", com);
+		if (access(com,0) == 0)
+		{
+			printf("found at %s\n", com);
+			break ;
+		}
+		if (com)
+			free(com);
+		com = NULL;
+		i++;
+	}
+	execv(com, arg);
+}
+
+
+char	**create_arg(void)
+{
+	char	**res;
+	char	*tmp;
+
+	res = malloc(sizeof(char *) * 2);
+	tmp = malloc(2);
+	tmp[0] = '.';
+	tmp[1] = '\0';
+	res[0] = tmp;
+	res[1] = NULL;
+	return (res);
+}
+
+char	**clean_path(char **path)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (path[i])
+	{
+		temp = path[i];
+		path[i] = ft_strtrim(path[i], " ");
+		path[i] = ft_strappend(path[i], "/");
+		free(temp);
+		i++;
+	}
+	return (path);
+}
+
+char	*get_path(char **env)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
 	path = NULL;
 	while (!path && env[i])
 	{
@@ -27,14 +107,5 @@ int	main(int ac, char **av, char **env)
 	if (!path)
 		return (0);
 	path = path + 5;
-	sys_path = ft_split(path, ':');
-	if (!sys_path)
-		return (0);
-	i = 0;
-	while (sys_path[i])
-	{
-		sys_path[i] = ft_strappend(sys_path[i], "/");
-		printf("sys_path = %s\n", sys_path[i]);
-		i++;
-	}
+	return (path);
 }

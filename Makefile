@@ -49,7 +49,7 @@ clean:
 fclean: clean
 	@make -C ./libft clean
 	@$(RM) $(NAME)
-	@ echo "$(RED)Remove minishell $(RESET)"
+	@echo "$(RED)Remove minishell $(RESET)"
 
 re: fclean all
 
