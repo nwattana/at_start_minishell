@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 02:08:37 by nwattana          #+#    #+#             */
-/*   Updated: 2022/03/03 18:35:06 by nwattana         ###   ########.fr       */
+/*   Updated: 2022/12/28 22:32:14 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	iter;
 	size_t	n_size;
-	size_t	h_size;
 	char	*c;
 
-	h_size = ft_strlen(haystack);
 	n_size = ft_strlen(needle);
 	c = (char *)haystack;
 	iter = 0;
