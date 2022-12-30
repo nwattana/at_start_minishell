@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 01:33:19 by nwattana          #+#    #+#             */
-/*   Updated: 2022/12/29 02:51:26 by nwattana         ###   ########.fr       */
+/*   Updated: 2022/12/31 03:54:55 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,18 @@ int	main(int ac, char **av, char **env)
 	char	**sys_path;
 	char	*com;
 	char	**arg = create_arg();
+	int		file1 = open("./test_dup", O_WRONLY | O_CREAT, 0777);
 
-	path = get_path(env);
+	//path = get_path(env);
 	if (path == NULL) 
 		return (1);
+	path = getenv("PATH");
 	sys_path = ft_split(path, ':');
 	if (!sys_path)
 		return (0);
 	sys_path = clean_path(sys_path);
 
 
-
-	i = 0;
-	while (sys_path[i])
-	{
-	//	printf("%s\n",sys_path[i]);
-		i++;
-	}
 
 	/* check access */
 	char	*cm = "ls";
@@ -65,7 +60,19 @@ int	main(int ac, char **av, char **env)
 		i++;
 	}
 	printf("\n");
-	execv(com, arg);
+	int pid;
+	int	ftout = dup(STDOUT_FILENO);
+	printf("affter this will push into file\n");
+	int file2 = dup2(file1, STDOUT_FILENO);
+	pid = fork();
+	if (pid == 0)
+		execv(com, arg);
+	else
+	{
+		wait(NULL);
+		dup2(ftout, file2);
+		printf("Program Finish\n");
+	}
 }
 
 

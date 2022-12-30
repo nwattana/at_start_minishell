@@ -10,6 +10,7 @@ TEST_FILE=run_command.c
 
 RM=rm -rf
 
+
 # Color
 RED=\033[1;31m
 GREEN=\033[1;32m
@@ -25,18 +26,20 @@ else
 	LREAD_DIR = -L/usr/local/opt/readline -I/usr/local/opt/readline/include -lreadline
 endif
 
+INC=-iquote ./include $(LREAD_DIR) $(LIBFT)
 
 all: libft
 	@printf "Now you complie in \e[1;34m$(UNAME)\e[0m\n"
 	@ echo "$(RED)"
-	$(CC) $(CFLAGS) main.c $(LREAD_DIR) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) main.c $(INC) -o $(NAME)
 	@ echo "$(RESET)"
 
 test: libft
 	@printf "$(RED)Run test$(RESET)\n"
-	$(CC) $(CFLAGS) $(TEST_FILE) $(LREAD_DIR) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(TEST_FILE) $(INC) -o $(NAME)
 	@printf "$(GREEN)Result test$(RESET)\n"
 	@./$(NAME)
+	@echo "Exit with  $(.SHELLSTATUS)"
 
 libft:
 	@echo "Start Create $(BLUE)Lib-ft$(RESET)"

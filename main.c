@@ -2,17 +2,22 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "ft_terminal.h"
 
-int main() {
-  char* input = readline("Enter your command: ");
-  printf("You entered: %s\n", input);
-
+int main() 
+{
+  char* input;
+  
+  input = readline(PROMPT_MESSAGE);
   while (input)
   {
-    input = readline("Enter your command: ");
-    printf("You entered: %s\n", input);
+    input = readline(PROMPT_MESSAGE);
+    printf("> %s\n", input);
     if (input == NULL)
       return (0);
+	add_history(input);
+	
 	free(input);
   }
 }
+
