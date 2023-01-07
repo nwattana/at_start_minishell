@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_stack_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 00:39:34 by nwattana          #+#    #+#             */
-/*   Updated: 2023/01/07 15:26:00 by nwattana         ###   ########.fr       */
+/*   Created: 2023/01/07 10:03:45 by nwattana          #+#    #+#             */
+/*   Updated: 2023/01/07 10:08:14 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strchr(const char *src, int c)
+t_stack	*ft_stack_init(t_list *node)
 {
-	char	*buff_s;
-	size_t	len;
+	t_stack		*stack;
 
-	len = ft_strlen(src) + 1;
-	c = c % 256;
-	buff_s = (char *)src;
-	while (len > 0)
+	stack = malloc(sizeof(t_stack));
+	if (!stack)
+		return (NULL);
+	if (!node)
 	{
-		if (*buff_s == c)
-		{
-			return (buff_s);
-		}
-		buff_s++;
-		len--;
+		stack->isempty = 1;
+		stack->size = 0;
+		stack->stack = NULL;
 	}
-	return (0);
+	else
+	{
+		stack->isempty = 0;
+		stack->size = 1;
+		stack->stack = node;
+	}
+	return (stack);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char Hello[13] = "Hello world";
-	char *hell = ft_strchr(Hello, 'w');
-
-	printf("Hello : %s\nHell : %s\n",Hello,hell);
-}*/

@@ -5,7 +5,7 @@ CC=gcc
 CFLAGS=#-Wall -Werror -Wextra
 SRCS=#SRC list
 LIBFT= -L./libft/ -I./libft/ -lft
-
+INC= -I./inc/
 TEST_FILE=run_command.c
 
 RM=rm -rf
@@ -29,7 +29,7 @@ endif
 all: libft
 	@printf "Now you complie in \e[1;34m$(UNAME)\e[0m\n"
 	@ echo "$(RED)"
-	$(CC) $(CFLAGS) main.c $(LREAD_DIR) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(INC) main.c $(LREAD_DIR) $(LIBFT) -o $(NAME)
 	@ echo "$(RESET)"
 
 test: libft
@@ -45,9 +45,11 @@ libft:
 clean:
 	@make -C ./libft clean
 	@$(RM) $(OBJ)
+	@$(RM) *.dSYM
 
 fclean: clean
 	@make -C ./libft clean
+	@ echo "$(RED)Remove Libft $(RESET)"
 	@$(RM) $(NAME)
 	@ echo "$(RED)Remove minishell $(RESET)"
 

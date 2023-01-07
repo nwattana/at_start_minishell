@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_stack_pop.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 00:39:34 by nwattana          #+#    #+#             */
-/*   Updated: 2023/01/07 15:26:00 by nwattana         ###   ########.fr       */
+/*   Created: 2023/01/07 10:12:50 by nwattana          #+#    #+#             */
+/*   Updated: 2023/01/07 10:29:38 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strchr(const char *src, int c)
+t_list	*ft_stack_pop(t_stack *sta)
 {
-	char	*buff_s;
-	size_t	len;
+	t_list	*pop;
 
-	len = ft_strlen(src) + 1;
-	c = c % 256;
-	buff_s = (char *)src;
-	while (len > 0)
+	if (sta->isempty)
+		return (NULL);
+	else
 	{
-		if (*buff_s == c)
-		{
-			return (buff_s);
-		}
-		buff_s++;
-		len--;
+		pop = sta->stack;
+		sta->stack = sta->stack->next;
+		pop->next = NULL;
+		sta->size -= 1;
+		if (sta->size == 0)
+			sta->isempty = 1;
 	}
-	return (0);
+	return (pop);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char Hello[13] = "Hello world";
-	char *hell = ft_strchr(Hello, 'w');
-
-	printf("Hello : %s\nHell : %s\n",Hello,hell);
-}*/

@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_stack_clear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 00:39:34 by nwattana          #+#    #+#             */
-/*   Updated: 2023/01/07 15:26:00 by nwattana         ###   ########.fr       */
+/*   Created: 2023/01/07 10:21:17 by nwattana          #+#    #+#             */
+/*   Updated: 2023/01/07 10:31:11 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strchr(const char *src, int c)
+int	ft_stack_clear(t_stack *sta, void (*del)(void *))
 {
-	char	*buff_s;
-	size_t	len;
-
-	len = ft_strlen(src) + 1;
-	c = c % 256;
-	buff_s = (char *)src;
-	while (len > 0)
-	{
-		if (*buff_s == c)
-		{
-			return (buff_s);
-		}
-		buff_s++;
-		len--;
-	}
+	if (!sta)
+		return (1);
+	ft_lstclear(&sta->stack, del);
+	free(sta);
+	sta = NULL;
 	return (0);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char Hello[13] = "Hello world";
-	char *hell = ft_strchr(Hello, 'w');
-
-	printf("Hello : %s\nHell : %s\n",Hello,hell);
-}*/

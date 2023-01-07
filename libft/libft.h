@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 23:56:26 by nwattana          #+#    #+#             */
-/*   Updated: 2022/12/27 02:47:09 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/01/07 10:47:00 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef struct s_stack
+{
+	int		isempty;
+	int		size;
+	t_list	*stack;
+}				t_stack;
+
+int		ft_stack_push(t_stack *sta, t_list *node);
+t_list	*ft_stack_pop(t_stack *sta);
+t_stack	*ft_stack_init(t_list *node);
+t_list	*ft_stack_peak(t_stack *stack);
+int		ft_stack_clear(t_stack *sta, void (*del)(void *));
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
